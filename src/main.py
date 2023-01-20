@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 from yt_dlp import YoutubeDL
 from contextlib import redirect_stdout
 import io
@@ -16,6 +16,15 @@ ydl_opts = {
     'preferredcodec': 'mp3',
   }]
 }
+
+@app.route('/', methods=['GET'])
+def index():
+  response = app.response_class(
+    response=json.dumps({'message': 'Hello World!'}, indent=2),
+    status=200,
+    mimetype='application/json'
+  )
+  return response
 
 @app.route('/info', methods=['GET'])
 def info():
