@@ -120,5 +120,17 @@ def download():
     )
     return response
 
+@app.route('/convert', methods=['GET'])
+def convert():
+  # Get the URL from the request
+  url = request.args.get('url')
+
+  response = app.response_class(
+    response=f'<a href="{request.host_url}/download?url={url}">Click to Download</a>',
+    status=200,
+    mimetype='text/html'
+  )
+  return response
+
 if __name__ == '__main__':
   app.run(debug=True)
