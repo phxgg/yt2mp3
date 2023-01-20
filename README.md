@@ -57,9 +57,12 @@ GET /info?url=https://www.youtube.com/watch?v=UsR08cY8k0A
 }
 ```
 
-### GET /download
+### POST /download
 
 Download a YouTube video as an MP3 file.
+
+> **Note:**
+> This endpoint is CSRF protected. You will need to send a CSRF token in the `X-CSRFToken` header.
 
 **Parameters:**
 
@@ -67,11 +70,7 @@ Download a YouTube video as an MP3 file.
 | ---- | ---- | ----------- |
 | `url` | `string` | YouTube video URL |
 
-**Example:**
-
-```http
-GET /download?url=https://www.youtube.com/watch?v=UsR08cY8k0A
-```
+Content-Type: `application/json`
 
 **Response:**
 

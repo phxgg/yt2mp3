@@ -23,15 +23,6 @@ ydl_opts = {
   }]
 }
 
-@app.route('/', methods=['GET'])
-def index():
-  response = app.response_class(
-    response=json.dumps({'message': 'Hello World!'}, indent=2),
-    status=200,
-    mimetype='application/json'
-  )
-  return response
-
 @app.route('/info', methods=['GET'])
 def info():
   # Get the URL from the request
@@ -127,11 +118,12 @@ def download():
     return response
 
 @app.route('/convert', methods=['GET'])
+@app.route('/', methods=['GET'])
 def convert():
   # Get the URL from the request
   url = request.args.get('url')
 
-  return render_template('convert.html', host_url=request.host_url, url=url)
+  return render_template('convert.html', url=url)
 
 if __name__ == '__main__':
   app.run(debug=True)
