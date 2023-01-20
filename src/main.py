@@ -1,28 +1,17 @@
 import json
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template
 from yt_dlp import YoutubeDL
 from contextlib import redirect_stdout
 import io
-import unicodedata
-import re
+from utils import slugify, is_youtube_url
+from flask_wtf.csrf import CSRFProtect
+import os
 
-def slugify(value, allow_unicode=False):
-  """
-  Taken from https://github.com/django/django/blob/master/django/utils/text.py
-  Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
-  dashes to single dashes. Remove characters that aren't alphanumerics,
-  underscores, or hyphens. Convert to lowercase. Also strip leading and
-  trailing whitespace, dashes, and underscores.
-  """
-  value = str(value)
-  if allow_unicode:
-    value = unicodedata.normalize('NFKC', value)
-  else:
-    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
-  value = re.sub(r'[^\w\s-]', '', value.lower())
-  return re.sub(r'[-\s]+', '-', value).strip('-_')
+SECRET_KEY = os.urandom(32)
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
+app.config['SECRET_KEY'] = SECRET_KEY
+csrf = CSRFProtect(app)
 
 ydl_opts = {
   'outtmpl': '-',
@@ -95,10 +84,27 @@ def get_download_url():
       )
       return response
 
-@app.route('/download', methods=['GET'])
+@app.route('/download', methods=['POST'])
 def download():
-  # Get the URL from the request
-  url = request.args.get('url')
+  # Get url from the request
+  url = request.json.get('url')
+  error = None
+
+  # Check if url is empty
+  if (url is None):
+    error = 'URL is required'
+
+  # Check if url is valid
+  if (not is_youtube_url(url)):
+    error = 'URL is not valid'
+  
+  if (error is not None):
+    response = app.response_class(
+      response=json.dumps({'error': error}),
+      status=400,
+      mimetype='application/json'
+    )
+    return response
 
   try:
     filename = ''
@@ -125,12 +131,7 @@ def convert():
   # Get the URL from the request
   url = request.args.get('url')
 
-  response = app.response_class(
-    response=f'<a href="{request.host_url}/download?url={url}">Click to Download</a>',
-    status=200,
-    mimetype='text/html'
-  )
-  return response
+  return render_template('convert.html', host_url=request.host_url, url=url)
 
 if __name__ == '__main__':
   app.run(debug=True)

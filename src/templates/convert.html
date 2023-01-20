@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom JS -->
+  <script src="static/js/app.js"></script>
+
+  <title>YouTube To MP3 Converter</title>
+</head>
+
+<body>
+  <div class="flex flex-col h-screen items-center justify-center -mt-20 py-8 px-4 space-y-8">
+    <h1 class="text-3xl font-bold">YouTube To MP3 Converter</h1>
+
+    <form class="flex flex-col p-4 shadow space-y-4 w-full max-w-md" action="/download" method="post">
+      <div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="url">
+          YouTube URL
+        </label>
+        <input
+          class="transition ease-in-out duration-250 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:border-opacity-60"
+          id="url" value="{{url}}" name="url" type="text" placeholder="Enter YouTube URL" />
+      </div>
+
+      <div class="flex justify-center">
+        <span class="relative inline-flex">
+          <button id="btn-convert" type="submit"
+            class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-red-500 bg-white dark:bg-slate-800 transition ease-in-out duration-150 ring-1 ring-slate-900/10 dark:ring-slate-200/20 hover:bg-slate-100 disabled:opacity-50">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            &nbsp;Convert
+          </button>
+          <span id="loading" class="hidden">
+            <span class="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+          </span>
+        </span>
+      </div>
+    </form>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#url').focus();
+    });
+  </script>
+</body>
+
+</html>

@@ -11,6 +11,20 @@ Coded in **Python 3.11.1**
 pip install -r requirements.txt
 ```
 
+You will also need to have **ffmpeg** installed on your system.
+
+```bash
+# Ubuntu
+sudo apt install ffmpeg
+
+# Homebrew macOS
+brew install ffmpeg
+
+# Windows
+# Download the latest version from https://ffmpeg.org/download.html
+# Extract the archive and add the bin folder to your PATH
+```
+
 2. Run the server:
 ```
 python main.py
