@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request, send_file, jsonify
+from flask import Flask, request, send_file
 from yt_dlp import YoutubeDL
 from contextlib import redirect_stdout
 import io
