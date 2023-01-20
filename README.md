@@ -30,7 +30,7 @@ Get information about a YouTube video.
 
 **Example:**
 
-```
+```http
 GET /info?url=https://www.youtube.com/watch?v=UsR08cY8k0A
 ```
 
@@ -51,17 +51,17 @@ Download a YouTube video as an MP3 file.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| url | string | YouTube video URL |
+| `url` | `string` | YouTube video URL |
 
 **Example:**
 
-```
+```http
 GET /download?url=https://www.youtube.com/watch?v=UsR08cY8k0A
 ```
 
 **Response:**
 
-```
+```http
 HTTP/1.1 200 OK
 Content-Disposition: attachment; filename=jvke-golden-hour-official-lyric-video.mp3
 Content-Length: 3502304
@@ -79,11 +79,11 @@ Grabs an audio only URL from a YouTube video.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| url | string | YouTube video URL |
+| `url` | `string` | YouTube video URL |
 
 **Example:**
 
-```
+```http
 GET /get_download_url?url=https://www.youtube.com/watch?v=UsR08cY8k0A
 ```
 
