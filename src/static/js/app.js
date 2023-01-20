@@ -1,23 +1,23 @@
 $(document).ready(() => {
   $('form').submit(function (e) {
     e.preventDefault();
-  
-    $('#loading').show();
-    $('#btn-convert').addClass('cursor-not-allowed');
-    $('#btn-convert').prop('disabled', true);
-    
+
     var url = $('#url').val();
-  
+
     if (!url.length) {
       alert('Please enter a YouTube URL');
       return;
     }
-  
+
     // Check if URL is valid
     if (!url.match(/^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/)) {
       alert('Please enter a valid YouTube URL');
       return;
     }
+  
+    $('#loading').show();
+    $('#btn-convert').addClass('cursor-not-allowed');
+    $('#btn-convert').prop('disabled', true);
   
     var csrfToken = $('input[name="csrf_token"]').val();
     var filename = '';

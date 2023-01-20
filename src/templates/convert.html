@@ -28,7 +28,7 @@
         </label>
         <input
           class="transition ease-in-out duration-250 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:border-opacity-60"
-          id="url" value="{{url}}" name="url" type="text" placeholder="Enter YouTube URL" />
+          id="url" value="{{url if url else ''}}" name="url" type="text" placeholder="Enter YouTube URL" />
       </div>
 
       <div class="flex justify-center">
