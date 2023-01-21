@@ -9,7 +9,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from yt_dlp import YoutubeDL
 from utils import slugify, is_youtube_url
-from config import YDL_OPTIONS, DEBUG_MODE
+from config import YDL_OPTIONS, HOST, PORT, DEBUG_MODE
 
 SECRET_KEY = os.urandom(32)
 
@@ -123,4 +123,4 @@ def index():
   return render_template('index.html', url=url)
 
 if __name__ == '__main__':
-  app.run(debug=DEBUG_MODE)
+  app.run(host=HOST, port=PORT, debug=DEBUG_MODE)

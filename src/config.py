@@ -9,5 +9,7 @@ YDL_OPTIONS = {
   }]
 }
 
+HOST = '127.0.0.1'
+PORT = 5000
 DEBUG_MODE = True
 # SECRET_KEY = 'secret'
