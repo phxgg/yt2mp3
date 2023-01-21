@@ -1,27 +1,23 @@
 import json
-from flask import Flask, request, send_file, render_template
-from yt_dlp import YoutubeDL
-from contextlib import redirect_stdout
-import io
-from utils import slugify, is_youtube_url
-from flask_wtf.csrf import CSRFProtect
 import os
+import io
+from contextlib import redirect_stdout
+
+from flask import Flask, request, send_file, render_template
+from flask_wtf.csrf import CSRFProtect
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from yt_dlp import YoutubeDL
+from utils import slugify, is_youtube_url
+from config import YDL_OPTIONS, DEBUG_MODE
 
 SECRET_KEY = os.urandom(32)
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['SECRET_KEY'] = SECRET_KEY
-csrf = CSRFProtect(app)
 
-ydl_opts = {
-  'outtmpl': '-',
-  'logtostderr': True,
-  'format': 'm4a/bestaudio/best',
-  'postprocessors': [{  # Extract audio using ffmpeg
-    'key': 'FFmpegExtractAudio',
-    'preferredcodec': 'mp3',
-  }]
-}
+csrf = CSRFProtect(app)
+limiter = Limiter(app=app, key_func=get_remote_address)
 
 @app.route('/info', methods=['GET'])
 def info():
@@ -51,7 +47,7 @@ def get_download_url():
   # Get the URL from the request
   url = request.args.get('url')
 
-  with YoutubeDL(ydl_opts) as ydl:
+  with YoutubeDL(YDL_OPTIONS) as ydl:
     try:
       info_dict = ydl.extract_info(url, download=False)
       
@@ -76,6 +72,7 @@ def get_download_url():
       return response
 
 @app.route('/download', methods=['POST'])
+@limiter.limit('500/day;50/hour;10/minute')
 def download():
   # Get url from the request
   url = request.json.get('url')
@@ -101,7 +98,7 @@ def download():
     filename = ''
 
     buffer = io.BytesIO()
-    with redirect_stdout(buffer), YoutubeDL(ydl_opts) as ydl:
+    with redirect_stdout(buffer), YoutubeDL(YDL_OPTIONS) as ydl:
       info_dict = ydl.extract_info(url, download=False)
       filename = slugify(info_dict['title']) + '.mp3'
       ydl.download([url])
@@ -117,13 +114,13 @@ def download():
     )
     return response
 
-@app.route('/convert', methods=['GET'])
 @app.route('/', methods=['GET'])
-def convert():
+@limiter.exempt
+def index():
   # Get the URL from the request
   url = request.args.get('url')
 
-  return render_template('convert.html', url=url)
+  return render_template('index.html', url=url)
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run(debug=DEBUG_MODE)

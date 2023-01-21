@@ -1,6 +1,6 @@
-# YouTube To MP3 API
+# YouTube To MP3 Converter
 
-Simple API to convert YouTube videos and serving them as downloadable MP3 files.
+Simple web app that converts YouTube videos and serves them as downloadable MP3 files.
 
 Coded in **Python 3.11.1**
 
