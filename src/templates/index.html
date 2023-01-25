@@ -16,27 +16,35 @@
   <title>YouTube To MP3 Converter</title>
 </head>
 
-<body>
+<body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
   <div id="toast-container" class="fixed top-0 right-0 p-4"></div>
 
   <div class="flex flex-col h-screen items-center justify-center -mt-20 py-8 px-4 space-y-2">
-    <h1 class="text-3xl font-bold mb-2">YouTube To MP3 Converter</h1>
 
-    <form class="flex flex-col p-4 shadow space-y-4 w-full max-w-md" action="/download" method="post">
+    <!-- Image Logo -->
+    <div class="flex flex-row items-center justify-center">
+      <img src="static/img/logo.png" id="logo" alt="Logo" class="w-16 h-16" />
+      <span class="text-2xl font-bold ml-2">YT2MP3</span>
+    </div>
+
+    <!-- <h1 class="text-3xl font-bold mb-2">YT2MP3</h1> -->
+
+    <form class="flex flex-col p-4 rounded-md shadow dark:shadow-slate-800 dark:bg-gray-900 space-y-4 w-full max-w-md" action="/download" method="post">
       <div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="url">
+        <label class="block text-slate-700 dark:text-gray-200 text-sm font-bold mb-2" for="url">
           YouTube URL
         </label>
+
         <input
-          class="transition ease-in-out duration-250 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:border-opacity-60"
+          class="transition ease-in-out duration-250 shadow appearance-none border dark:border-slate-800 rounded w-full py-2 px-3 text-gray-700 text-base dark:text-gray-300 dark:bg-slate-900 leading-tight focus:outline-none focus:shadow-outline focus:border-sky-500 focus:border-opacity-60"
           id="url" value="{{url if url else ''}}" name="url" type="text" placeholder="Enter YouTube URL" />
       </div>
 
       <div class="flex justify-center">
         <span class="relative inline-flex">
           <button id="btn-convert" type="submit"
-            class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-red-500 bg-white dark:bg-slate-800 transition ease-in-out duration-250 ring-1 ring-slate-900/10 dark:ring-slate-200/20 hover:bg-slate-100 disabled:opacity-50">
+            class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-red-500 bg-white dark:bg-slate-900 dark:hover:bg-slate-800 transition ease-in-out duration-250 ring-1 ring-slate-900/10 dark:ring-slate-200/20 hover:bg-slate-100 disabled:opacity-50">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-5 h-5">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -58,7 +66,7 @@
     <div class="flex flex-row w-full max-w-md text-sm">
       <div class="flex-1 justify-start">
         <a href="https://github.com/phxgg/yt2mp3" target="_blank"
-          class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500 inline-flex items-center">
+          class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500 dark:text-sky-500 dark:hover:text-sky-700 inline-flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github"
             viewBox="0 0 16 16">
             <path
@@ -68,8 +76,8 @@
         </a>
       </div>
 
-      <div class="text-gray-600">
-        Made with ❤️ by <a href="https://github.com/phxgg" target="_blank" class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500">phxgg</a>
+      <div class="text-gray-600 dark:text-gray-400">
+        Made with ❤️ by <a href="https://github.com/phxgg" target="_blank" class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500 dark:text-sky-500 dark:hover:text-sky-700">phxgg</a>
       </div>
     </div>
   </div>
