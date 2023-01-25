@@ -7,18 +7,18 @@ Coded in **Python 3.11.1**
 ## Installation
 
 1. Install requirements:
-```
-pip install -r requirements.txt
+```shell
+$ pip install -r requirements.txt
 ```
 
 You will also need to have **ffmpeg** installed on your system.
 
-```bash
+```shell
 # Ubuntu
-sudo apt install ffmpeg
+$ sudo apt install ffmpeg
 
 # Homebrew macOS
-brew install ffmpeg
+$ brew install ffmpeg
 
 # Windows
 # Download the latest version from https://ffmpeg.org/download.html
@@ -26,8 +26,8 @@ brew install ffmpeg
 ```
 
 2. Run the server:
-```
-python main.py
+```shell
+$ python main.py
 ```
 
 ## Endpoints
@@ -108,4 +108,15 @@ GET /get_download_url?url=https://www.youtube.com/watch?v=UsR08cY8k0A
   "video_id": "UsR08cY8k0A",
   "download_url": "<a_youtube_audio_url>"
 }
+```
+
+## Deploy to Google Cloud
+
+Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install).
+
+1. Create a new project on [Google Cloud](https://console.cloud.google.com/) and create a new App Engine application as described [here](https://cloud.google.com/appengine/docs/standard/python3/building-app/creating-gcp-project).
+2. Clone this repository.
+3. Depoy with:
+```shell
+$ gcloud app deploy
 ```
