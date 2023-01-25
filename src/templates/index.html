@@ -75,7 +75,7 @@
           </svg>
           &nbsp;View
         </a>
-        <a href='javascript:(function(){if (location.host == "www.youtube.com" && location.search.indexOf("v=") != -1){open("{{ host_url }}?url=" + window.location.href);}else if (location.host == "www.youtube.com" && location.pathname.indexOf("/embed/") != -1){open("{{ host_url }}?url=" + window.location.href);}else{alert("To use this bookmarklet, click it while watching a YouTube video in your web browser.");}})()'
+        <a href='javascript:(function(){if((location.host=="www.youtube.com"&&location.search.indexOf("v=")!=-1)||(location.host=="www.mixcloud.com")){open("https://yt2mp3-375819.ey.r.appspot.com/?url="+window.location.href);}elseif(location.host=="www.youtube.com"&&location.pathname.indexOf("/embed/")!=-1){open("https://yt2mp3-375819.ey.r.appspot.com/?url="+window.location.href);}else{alert("Tousethisbookmarklet,clickitwhilewatchingaYouTubevideo,orlisteningtoMixcloudaudioinyourwebbrowser.");}})()'
           class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500 dark:text-sky-500 dark:hover:text-sky-700 inline-flex items-center"
           title="Drag this link to your bookmarks bar to use it as a bookmarklet.">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star"
