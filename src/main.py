@@ -3,7 +3,7 @@ import os
 import io
 from contextlib import redirect_stdout
 
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request, send_file, render_template, send_from_directory
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -18,6 +18,10 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 csrf = CSRFProtect(app)
 limiter = Limiter(app=app, key_func=get_remote_address)
+
+@app.route('/robots.txt')
+def static_from_root():
+  return send_from_directory(app.static_folder, request.path[1:])
 
 @app.route('/info', methods=['GET'])
 def info():
