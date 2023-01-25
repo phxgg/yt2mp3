@@ -10,7 +10,7 @@ $(document).ready(() => {
     }
 
     // Check if URL is valid
-    if (!url.match(/^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/)) {
+    if (!utils.isValidUrl(url)) {
       alert('Please enter a valid YouTube URL');
       return;
     }
@@ -121,5 +121,21 @@ var utils = {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  },
+
+  isYoutubeUrl: function (url) {
+    var p = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((?:\w|-){11})(?:\S+)?$/;
+    return url.match(p);
+  },
+
+  isMixcloudUrl: function (url) {
+    var p = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:mixcloud\.com\/)([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)\/?$/;
+    return url.match(p);
+  },
+
+  isValidUrl: function (url) {
+    if (!url) return false;
+    if (!this.isYoutubeUrl(url) && !this.isMixcloudUrl(url)) return false;
+    return true;
   }
 }

@@ -29,7 +29,8 @@
 
     <!-- <h1 class="text-3xl font-bold mb-2">YT2MP3</h1> -->
 
-    <form class="flex flex-col p-4 rounded-md shadow dark:shadow-slate-800 dark:bg-gray-900 space-y-4 w-full max-w-md" action="/download" method="post">
+    <form class="flex flex-col p-4 rounded-md shadow dark:shadow-slate-800 dark:bg-gray-900 space-y-4 w-full max-w-md"
+      action="/download" method="post">
       <div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
         <label class="block text-slate-700 dark:text-gray-200 text-sm font-bold mb-2" for="url">
@@ -64,7 +65,7 @@
 
     <!-- Footer -->
     <div class="flex flex-row w-full max-w-md text-sm">
-      <div class="flex-1 justify-start">
+      <div class="flex-1 justify-start space-x-2">
         <a href="https://github.com/phxgg/yt2mp3" target="_blank"
           class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500 dark:text-sky-500 dark:hover:text-sky-700 inline-flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github"
@@ -74,10 +75,23 @@
           </svg>
           &nbsp;View
         </a>
+        <a href='javascript:(function(){if (location.host == "www.youtube.com" && location.search.indexOf("v=") != -1){open("{{ host_url }}?url=" + window.location.href);}else if (location.host == "www.youtube.com" && location.pathname.indexOf("/embed/") != -1){open("{{ host_url }}?url=" + window.location.href);}else{alert("To use this bookmarklet, click it while watching a YouTube video in your web browser.");}})()'
+          class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500 dark:text-sky-500 dark:hover:text-sky-700 inline-flex items-center"
+          title="Drag this link to your bookmarks bar to use it as a bookmarklet.">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star"
+            viewBox="0 0 16 16">
+            <path
+              d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z" />
+            <path
+              d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+          </svg>
+          &nbsp;YouTube > MP3
+        </a>
       </div>
 
       <div class="text-gray-600 dark:text-gray-400">
-        Made with ❤️ by <a href="https://github.com/phxgg" target="_blank" class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500 dark:text-sky-500 dark:hover:text-sky-700">phxgg</a>
+        Made with ❤️ by <a href="https://github.com/phxgg" target="_blank"
+          class="transition ease-in-out duration-250 text-sky-700 hover:text-sky-500 dark:text-sky-500 dark:hover:text-sky-700">phxgg</a>
       </div>
     </div>
   </div>
@@ -86,6 +100,10 @@
     $(document).ready(function () {
       $('#url').focus();
     });
+
+    $(function () {
+      $(document).tooltip();
+    })
   </script>
 </body>
 

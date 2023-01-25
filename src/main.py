@@ -8,7 +8,7 @@ from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from yt_dlp import YoutubeDL
-from utils import slugify, is_youtube_url
+from utils import slugify, is_valid_url
 from config import YDL_OPTIONS, HOST, PORT, DEBUG_MODE
 
 SECRET_KEY = os.urandom(32)
@@ -87,7 +87,7 @@ def download():
     error = 'URL is required'
 
   # Check if url is valid
-  if (not is_youtube_url(url)):
+  if (not is_valid_url(url)):
     error = 'URL is not valid'
   
   if (error is not None):
@@ -124,7 +124,7 @@ def index():
   # Get the URL from the request
   url = request.args.get('url')
 
-  return render_template('index.html', url=url)
+  return render_template('index.html', host_url=request.host_url, url=url)
 
 if __name__ == '__main__':
   app.run(host=HOST, port=PORT, debug=DEBUG_MODE)
