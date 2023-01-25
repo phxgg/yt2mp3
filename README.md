@@ -40,7 +40,7 @@ Get information about a YouTube video.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| url | string | YouTube video URL |
+| `url` | `string` | YouTube video URL |
 
 **Example:**
 
