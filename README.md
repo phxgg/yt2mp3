@@ -1,6 +1,6 @@
 # YouTube To MP3 Converter
 
-Simple web app that converts YouTube videos and serves them as downloadable MP3 files.
+Simple web app that converts YouTube videos and other platforms' audio to MP3.
 
 Coded in **Python 3.11.1**
 
