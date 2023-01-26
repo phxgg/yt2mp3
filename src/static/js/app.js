@@ -37,18 +37,23 @@ $(document).ready(() => {
         throw new Error(res.statusText);
       }
 
-      // Get filename from content-disposition header
-      // if (!res.headers.get('content-disposition')) {
-      //   throw new Error('No content-disposition header');
-      // }
+      // The commented code below is an example of how to get the filename from the content-disposition header
+      // when we want to convert and serve files from the server.
+
+      /*
+      if (!res.headers.get('content-disposition')) {
+        throw new Error('No content-disposition header');
+      }
   
-      // filename = res.headers.get('content-disposition').split('filename=')[1];
-      // if (!filename) {
-      //   throw new Error('No filename');
-      // }
+      filename = res.headers.get('content-disposition').split('filename=')[1];
+      if (!filename) {
+        throw new Error('No filename');
+      }
+
+      return res.blob();
+      */
 
       return res.json();
-      // return res.blob();
     })
     .then(async res => {
       const filename = res.filename;
