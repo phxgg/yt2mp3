@@ -48,7 +48,7 @@ def info():
       )
       return response
 
-@app.route('/download_file', methods=['POST'])
+@app.route('/download_as_file', methods=['POST'])
 @limiter.limit('500/day;50/hour;10/minute')
 def download_as_file():
   response = app.response_class(
@@ -131,12 +131,14 @@ def convert():
         audio_url = [item for item in info_dict['formats'] if item['format_id'] == '140'][0]['url']
       elif info_dict['extractor'] == 'mixcloud':
         audio_url = [item for item in info_dict['formats'] if item['format_id'] == 'http'][0]['url']
+      elif info_dict['extractor'] == 'soundcloud':
+        audio_url = [item for item in info_dict['formats'] if item['format_id'] == 'http_mp3_128'][0]['url']
 
       response = app.response_class(
         response=json.dumps({
-          'filename': filename,
+          'id': info_dict['id'],
           'title': info_dict['title'],
-          'video_id': info_dict['id'],
+          'filename': filename,
           'audio_url': audio_url
         }, indent=2),
         status=200,
@@ -162,12 +164,3 @@ def index():
 
 if __name__ == '__main__':
   app.run(host=HOST, port=PORT, debug=DEBUG_MODE)
-
-
-@app.after_request
-def after_request(response):
-  header = response.headers
-  header['Access-Control-Allow-Origin'] = '*'
-  header['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-  header['Access-Control-Allow-Methods'] = 'OPTIONS, HEAD, GET, POST, DELETE, PUT'
-  return response

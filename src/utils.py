@@ -23,5 +23,8 @@ def is_youtube_url(url):
 def is_mixcloud_url(url):
   return re.match(r'^(https?\:\/\/)?(www\.)?(mixcloud\.com)\/.+$', url)
 
+def is_soundcloud_url(url):
+  return re.match(r'^(https?\:\/\/)?(www\.)?(soundcloud\.com)\/.+$', url)
+
 def is_valid_url(url):
-  return is_youtube_url(url) or is_mixcloud_url(url)
+  return is_youtube_url(url) or is_mixcloud_url(url) or is_soundcloud_url(url)

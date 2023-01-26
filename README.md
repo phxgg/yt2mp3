@@ -25,10 +25,17 @@ $ brew install ffmpeg
 # Extract the archive and add the bin folder to your PATH
 ```
 
-2. Run the server:
+2. Run the server locally:
 ```shell
-$ python main.py
+$ python src/main.py
 ```
+
+## Supported Platforms
+
+- [x] YouTube
+- [x] MixCloud
+- [x] SoundCloud
+- More soon?
 
 ## Endpoints
 
@@ -76,9 +83,9 @@ Content-Type: `application/json`
 
 ```json
 {
-  "filename": "jvke-golden-hour-official-lyric-video.mp3",
+  "id": "UsR08cY8k0A",
   "title": "JVKE - Golden Hour (Official Lyric Video)",
-  "video_id": "UsR08cY8k0A",
+  "filename": "jvke-golden-hour-official-lyric-video.mp3",
   "audio_url": "<a_youtube_audio_url>"
 }
 ```

@@ -139,9 +139,16 @@ var utils = {
     return url.match(p);
   },
 
+  isSoundcloudUrl: function (url) {
+    var p = /^(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:soundcloud\.com\/)([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)\/?$/;
+    return url.match(p);
+  },
+
   isValidUrl: function (url) {
     if (!url) return false;
-    if (!this.isYoutubeUrl(url) && !this.isMixcloudUrl(url)) return false;
-    return true;
+    if (this.isYoutubeUrl(url)
+    || this.isMixcloudUrl(url)
+    || this.isSoundcloudUrl(url)) return true;
+    return false;
   }
 }
