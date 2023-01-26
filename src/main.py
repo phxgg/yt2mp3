@@ -1,10 +1,10 @@
 import json
 import os
 import io
+import requests
 from contextlib import redirect_stdout
 
-from flask import Flask, request, send_file, render_template, send_from_directory, make_response
-from flask_cors import CORS, cross_origin
+from flask import Flask, Response, request, send_file, render_template, send_from_directory, stream_with_context
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -17,7 +17,16 @@ SECRET_KEY = os.urandom(32)
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['SECRET_KEY'] = SECRET_KEY
 
-cors = CORS(app)
+method_requests_mapping = {
+  'GET': requests.get,
+  'POST': requests.post,
+  'PUT': requests.put,
+  'DELETE': requests.delete,
+  'PATCH': requests.patch,
+  'HEAD': requests.head,
+  'OPTIONS': requests.options
+}
+
 csrf = CSRFProtect(app)
 limiter = Limiter(app=app, key_func=get_remote_address)
 
@@ -48,7 +57,7 @@ def info():
       )
       return response
 
-@app.route('/download_as_file', methods=['POST'])
+@app.route('/download_as_file', methods=method_requests_mapping.keys())
 @limiter.limit('500/day;50/hour;10/minute')
 def download_as_file():
   response = app.response_class(
@@ -97,6 +106,15 @@ def download_as_file():
       mimetype='application/json'
     )
     return response
+
+@app.route('/proxy/<path:url>', methods=['GET'])
+def proxy(url):
+  return
+  requests_function = method_requests_mapping[request.method]
+  r = requests_function(url, stream=True, params=request.args)
+  response = Response(stream_with_context(r.iter_content()), content_type=r.headers['content-type'], status=r.status_code)
+  response.headers['Access-Control-Allow-Origin'] = '*'
+  return response
 
 @app.route('/convert', methods=['POST'])
 @limiter.limit('5000/day;1000/hour;100/minute')

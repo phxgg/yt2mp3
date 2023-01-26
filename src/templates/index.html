@@ -32,7 +32,9 @@
     <form class="flex flex-col p-4 rounded-md shadow dark:shadow-slate-800 dark:bg-gray-900 space-y-4 w-full max-w-md"
       action="/download" method="post">
       <div>
+        <input type="hidden" name="host_url" value="{{ host_url }}" />
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
         <label class="block text-slate-700 dark:text-gray-200 text-sm font-bold mb-2" for="url">
           YouTube URL
         </label>

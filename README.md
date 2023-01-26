@@ -40,6 +40,7 @@ $ python src/main.py
 ## ToDo
 
 - [ ] We shouldn't convert and serve files on the server because this is gonna be a huge bandwidth hog. Instead, we should force a download of the audio url. Currently this method is not working on YouTube because of CORS issues, but it works on MixCloud. Find a way to make it work on all platforms.
+Maybe use a CORS proxy? idk yet.
 
 ## Endpoints
 
