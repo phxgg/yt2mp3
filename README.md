@@ -57,9 +57,39 @@ GET /info?url=https://www.youtube.com/watch?v=UsR08cY8k0A
 }
 ```
 
-### POST /download
+### POST /convert
+
+Return the audio URL of a YouTube video that can then be saved as an MP3 file, and other info.
+
+> **Note:**
+> This endpoint is CSRF protected. You will need to send a CSRF token in the `X-CSRFToken` header.
+
+**Parameters:**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `url` | `string` | YouTube video URL |
+
+Content-Type: `application/json`
+
+**Response:**
+
+```json
+{
+  "filename": "jvke-golden-hour-official-lyric-video.mp3",
+  "title": "JVKE - Golden Hour (Official Lyric Video)",
+  "video_id": "UsR08cY8k0A",
+  "audio_url": "<a_youtube_audio_url>"
+}
+```
+
+### POST /download_as_file
 
 Download a YouTube video as an MP3 file.
+
+> **Warning:**
+> This endpoint is unavailable in production due to high bandwidth usage.
+> However, this is an example on how you can convert to MP3 and serve files on the fly.
 
 > **Note:**
 > This endpoint is CSRF protected. You will need to send a CSRF token in the `X-CSRFToken` header.
@@ -79,35 +109,6 @@ HTTP/1.1 200 OK
 Content-Disposition: attachment; filename=jvke-golden-hour-official-lyric-video.mp3
 Content-Length: 3502304
 Content-Type: audio/mpeg
-```
-
-### GET /get_download_url
-
-> **Warning:**
-> Under development.
-
-Grabs an audio only URL from a YouTube video.
-
-**Parameters:**
-
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| `url` | `string` | YouTube video URL |
-
-**Example:**
-
-```http
-GET /get_download_url?url=https://www.youtube.com/watch?v=UsR08cY8k0A
-```
-
-**Response:**
-
-```json
-{
-  "title": "JVKE - golden hour (Official Lyric Video)",
-  "video_id": "UsR08cY8k0A",
-  "download_url": "<a_youtube_audio_url>"
-}
 ```
 
 ## Deploy to Google Cloud
