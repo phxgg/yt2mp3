@@ -58,9 +58,12 @@ $(document).ready(() => {
     })
     .then(async res => {
       const filename = res.filename;
+      const extractor = res.extractor;
+
       // const blob = await fetch(host_url + '/proxy/' + res.audio_url).then(r => r.blob());
       // const url = window.URL.createObjectURL(blob);
       const url = res.audio_url;
+
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = url;

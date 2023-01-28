@@ -157,6 +157,7 @@ def convert():
           'id': info_dict['id'],
           'title': info_dict['title'],
           'filename': filename,
+          'extractor': info_dict['extractor'],
           'audio_url': audio_url
         }, indent=2),
         status=200,
